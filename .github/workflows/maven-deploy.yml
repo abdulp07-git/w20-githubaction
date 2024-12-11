@@ -28,11 +28,13 @@ jobs:
     - name: Initialize Terraform
       run: terraform -chdir=infra init -migrate-state
 
-    - name: Refresh Terraform State
-      run: terraform -chdir=infra refresh
+    
 
     - name: Apply Terraform
       run: terraform -chdir=infra apply -auto-approve
+
+    - name: Refresh Terraform State
+      run: terraform -chdir=infra refresh
 
     - name: Get EC2 Public IP
       id: get_ip
