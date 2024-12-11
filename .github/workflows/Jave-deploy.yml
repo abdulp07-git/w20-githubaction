@@ -1,4 +1,4 @@
-name: Deploy Maven Artifact
+name: Java deploy
 
 on:
     workflow_dispatch:
