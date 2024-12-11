@@ -24,7 +24,7 @@ jobs:
         terraform_version: 1.5.0
 
     - name: Initialize Terraform
-      run: terraform -chdir=infra init
+      run: terraform -chdir=infra init -migrate-state
 
     - name: Apply Terraform
       run: terraform -chdir=infra apply -auto-approve
@@ -33,7 +33,7 @@ jobs:
       id: get_ip
       run: |
         echo "ec2_ip=$(terraform output -raw ec2_public_ip)" >> $GITHUB_ENV
-        
+
 
     - name: Download WAR Artifact
       uses: actions/download-artifact@v3
