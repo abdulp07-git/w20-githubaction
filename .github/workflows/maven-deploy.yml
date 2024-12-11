@@ -31,13 +31,14 @@ jobs:
     
 
     - name: Apply Terraform
-      run: terraform -chdir=infra apply -auto-approve > terraform_output.txt
+      run: terraform -chdir=infra apply -auto-approve
 
     - name: Get EC2 Public IP
+      id: get_ip
       run: |
-        terraform -chdir=infra refresh
-        terraform output -raw ec2_public_ip > ec2_ip.txt
-        cat ec2_ip.txt
+        terraform -chdir=infra output -raw ec2_public_ip
+        ec2_ip=$(terraform -chdir=infra output -raw ec2_public_ip)
+        echo "ec2_ip=$ec2_ip" >> $GITHUB_ENV
 
 
     - name: Download WAR Artifact
