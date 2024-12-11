@@ -103,6 +103,7 @@
 </div>
 
 <div class="container">
+    <h1>Monolithic Application</h1>
     <h2>HTTP Request Information</h2>
     <p><strong>Request URL:</strong> <span><%= request.getRequestURL() %></span></p>
     <p><strong>Request Method:</strong> <span><%= request.getMethod() %></span></p>
