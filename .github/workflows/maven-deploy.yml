@@ -33,11 +33,18 @@ jobs:
     - name: Apply Terraform
       run: terraform -chdir=infra apply -auto-approve
 
+
+    - name: Debug EC2 Public IP Output
+      run: |
+        terraform -chdir=infra output -raw ec2_public_ip > debug_output.txt
+        cat debug_output.txt
+        
+
     - name: Get EC2 Public IP
       id: get_ip
       run: |
         terraform -chdir=infra output -raw ec2_public_ip
-        ec2_ip=$(terraform -chdir=infra output -raw ec2_public_ip)
+        ec2_ip=$(terraform -chdir=infra output -raw ec2_public_ip | tr -d '\r')
         echo "ec2_ip=$ec2_ip" >> $GITHUB_ENV
 
 
