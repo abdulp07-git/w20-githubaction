@@ -23,22 +23,16 @@ jobs:
       with:
         terraform_version: 1.10.1
 
-    
-
     - name: Initialize Terraform
       run: terraform -chdir=infra init -migrate-state
 
-    
-
     - name: Apply Terraform
       run: terraform -chdir=infra apply -auto-approve
-
 
     - name: Debug EC2 Public IP Output
       run: |
         terraform -chdir=infra output -raw ec2_public_ip > debug_output.txt
         cat debug_output.txt
-
 
     - name: Get EC2 Public IP
       id: get_ip
@@ -47,11 +41,9 @@ jobs:
         ec2_ip=$(terraform -chdir=infra output -raw ec2_public_ip | cut -d : -f1 | cut -d \' -f2)
         echo "ec2_ip=13.126.187.63" >> $GITHUB_ENV
 
-
-    - name: Download WAR Artifact
-      uses: actions/download-artifact@v3
-      with:
-        name: app.war
+    - name: Download WAR Artifact from S3
+      run: |
+        aws s3 cp s3://w20tfbackend/app.war ./app.war
 
     - name: Upload WAR to EC2
       env:
