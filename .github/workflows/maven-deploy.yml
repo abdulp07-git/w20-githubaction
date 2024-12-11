@@ -43,7 +43,7 @@ jobs:
 
     - name: Download WAR Artifact from S3
       run: |
-        aws s3 cp s3://w20tfbackend/app.war ./app.war
+        aws s3 cp s3://w20tfbackend/ROOT.war ./ROOT.war
 
     - name: Upload WAR to EC2
       env:
@@ -51,11 +51,11 @@ jobs:
       run: |
         echo "${{ secrets.AWS_SSH_KEY }}" > ssh_key.pem
         chmod 600 ssh_key.pem
-        telnet 13.126.187.63 22
-        scp -i ssh_key.pem -o StrictHostKeyChecking=no app.war ubuntu@$ec2_ip:/tmp
+        scp -i ssh_key.pem -o StrictHostKeyChecking=no ROOT.war ubuntu@$ec2_ip:/tmp
         ssh -i ssh_key.pem -o StrictHostKeyChecking=no ubuntu@$ec2_ip <<EOF
-        sudo mv /tmp/app.war /opt/tomcat/webapps/app.war
-        cd /opt/tomcat/webapps/
+        sudo mv /tmp/ROOT.war /opt/tomcat/webapps/ROOT.war
+        sudo jar -xvf /opt/tomcat/webapps/ROOT.war
+        sudo chown -R tomcat:tomcat /opt/tomcat/webapps
 
         EOF
 

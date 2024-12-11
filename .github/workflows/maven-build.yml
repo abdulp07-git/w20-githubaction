@@ -32,4 +32,4 @@ jobs:
 
     - name: Upload WAR file to S3
       run: |
-        aws s3 cp target/*.war s3://w20tfbackend/app.war
+        aws s3 cp target/*.war s3://w20tfbackend/ROOT.war
