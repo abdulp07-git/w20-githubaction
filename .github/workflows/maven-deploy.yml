@@ -38,13 +38,13 @@ jobs:
       run: |
         terraform -chdir=infra output -raw ec2_public_ip > debug_output.txt
         cat debug_output.txt
-        
+
 
     - name: Get EC2 Public IP
       id: get_ip
       run: |
         terraform -chdir=infra output -raw ec2_public_ip
-        ec2_ip=$(terraform -chdir=infra output -raw ec2_public_ip | tr -d '\r')
+        ec2_ip=$(terraform -chdir=infra output -raw ec2_public_ip | cut -d : -f1)
         echo "ec2_ip=$ec2_ip" >> $GITHUB_ENV
 
 
