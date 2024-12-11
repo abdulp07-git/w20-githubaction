@@ -52,8 +52,12 @@ jobs:
         echo "${{ secrets.AWS_SSH_KEY }}" > ssh_key.pem
         chmod 600 ssh_key.pem
         telnet 13.126.187.63 22
-        scp -i ssh_key.pem -o StrictHostKeyChecking=no app.war ubuntu@$ec2_ip:/opt/tomcat/webapps/
-        ssh -i ssh_key.pem -o StrictHostKeyChecking=no ubuntu@$EC2_IP "sudo systemctl restart tomcat.service"
+        scp -i ssh_key.pem -o StrictHostKeyChecking=no app.war ubuntu@$ec2_ip:/tmp
+        ssh -i ssh_key.pem -o StrictHostKeyChecking=no ubuntu@$EC2_IP <<EOF
+        sudo mv /tmp/app.war /opt/tomcat/webapps/app.war
+        cd /opt/tomcat/webapps/
+        
+        EOF
 
     - name: Clean up SSH Key
       run: rm -f ssh_key.pem
