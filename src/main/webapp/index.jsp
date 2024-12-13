@@ -93,7 +93,7 @@
 </div>
 
 <div class="container">
-    <h2>Server Information EC2</h2>
+    <h2>Server Information W20</h2>
     <div>
         <p><strong>Host Name:</strong> <span><%= hostName %></span></p>
         <p><strong>IP Address:</strong> <span><%= ipAddr %></span></p>
