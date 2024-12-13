@@ -77,7 +77,6 @@ resource "aws_dynamodb_table" "w20tf_state_lock_table" {
 }
 
 
-
 terraform {
   backend "s3" {
     bucket = "w20tfbackend"

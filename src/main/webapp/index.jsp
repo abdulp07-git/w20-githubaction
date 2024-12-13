@@ -93,7 +93,7 @@
 </div>
 
 <div class="container">
-    <h2>Server Information Review</h2>
+    <h2>Server Information EC2</h2>
     <div>
         <p><strong>Host Name:</strong> <span><%= hostName %></span></p>
         <p><strong>IP Address:</strong> <span><%= ipAddr %></span></p>
@@ -104,7 +104,7 @@
 
 <div class="container">
     
-    <h2>HTTP Request Information Monolithic</h2>
+    <h2>HTTP Request Information</h2>
     <p><strong>Request URL:</strong> <span><%= request.getRequestURL() %></span></p>
     <p><strong>Request Method:</strong> <span><%= request.getMethod() %></span></p>
 
